@@ -7,13 +7,13 @@
 			border: 1px solid black;}
 			#header {
 	            background-color: grey;
-	            color: black;
+	            color: white;
 	            top: 100px;
 				font-size: 19pt;
 	            letter-spacing: 3px;
-	            font-style: italic;
 	            text-align: center;
                 padding: 15px;
+				height: 70px;
             }
 			map { height: 40%px; 
 			      width: 50%;  
@@ -147,6 +147,11 @@
 				display: table;
 				clear: both;
 			}
+			#Table1 {
+			      position: absolute;
+			      top:20%;
+				  left:70%;
+			}
 
 		</style>
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
@@ -181,10 +186,20 @@
 
 	<div id="main" style="overflow: auto;">
 	<div id="map" style="width: 700px; height: 400px; "></div>
-<textarea id="geojsontextarea" style="width: 300px; height: 100px; margin: 8px 8px; "></textarea><br />
-				<div id="data">
+<div id="data">
 
-					<h1>Get Route Data</h1>
+    <table id="Table1" >
+   <h2 id="Header1">Routes</h2>
+   <tr>
+     <th>See</th>
+	 <th> Name </th>
+	 <th>Description</th>
+     <th>Date</th>
+     <th>Color</th>	 
+    </tr>
+
+
+	<h1>Get Route Data</h1>
 
 <form action="item/" method="GET" >
 	Name:<br />
@@ -195,20 +210,6 @@
 
 <br />
 
-<h1>Add Route</h1>
-
-<form action="item/create" method="POST" >
-	Name:<br />
-	<input type="text" name="name" /><br>
-	Description:<br />
-	<input type="text" name="description" /><br>
-	GeoJSON: <br />
-	<input type="text" name="geojson" placeholder="get geojson at 'Routeneditor'" /><br>
-	<br />
-	<input type="submit" value="Send" />
-</form>
-
-<br />
 
 <h1>Update Route</h1>
 
