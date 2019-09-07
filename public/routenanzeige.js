@@ -2,6 +2,8 @@ var map = L.map('map').setView([51.968804, 7.596188], 13);
 var osmLayer = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
 osmLayer.addTo(map);
 
+var colors = ['red','blue','green','yellow','purple','brown','cyan','orange', 'darkgreen'];
+console.log(colors[1]);
 
 var overlay = L.layerGroup();
 overlay.addTo(map);
@@ -14,9 +16,10 @@ var content = '';
 load.load(resource, function(result) {
 	content = load.html();
 	contentJ = JSON.parse(content);
+	console.log(contentJ);
 	var routeList = [];
 	for(var h = 0; h < contentJ.length; h++) {
-
+        table(contentJ[h].name, contentJ[h].description, contentJ[h].date, colors[h], h)
 		var geoj = JSON.parse(contentJ[h].geojson);
 
 		for(var i = 0; i < geoj.features.length; i++) {
@@ -26,11 +29,40 @@ load.load(resource, function(result) {
 				line.push(point);
 			}
 
-			routeList[i] = L.polyline(line, {color: 'red'})
+			routeList[i] = L.polyline(line, {color: colors[h]});
 			routeList[i].addTo(overlay);
 		}
 	}
 });
+console.log(overlay);
+
+function table(name, desc, date, color, h){
+var table = document.getElementById("Table1");
+
+var row = table.insertRow(-1);
+
+var cell0 = row.insertCell(0);
+var cell1 = row.insertCell(1);
+var cell2 = row.insertCell(2);
+var cell3 = row.insertCell(3);
+var cell4 = row.insertCell(4);
+
+cell4.setAttribute('bgcolor', color);
+
+        var checkbox = document.createElement("INPUT"); //Added for checkbox
+        checkbox.type = "checkbox"; //Added for checkbox
+		checkbox.class = "objs";
+		checkbox.checked = true;
+		checkbox.value = h;
+
+
+cell0.appendChild(checkbox);
+cell1.innerHTML = name;
+cell2.innerHTML = desc;
+cell3.innerHTML = date;
+cell4.innerHTML = "";
+
+}
 
 /**
 $.ajax({
