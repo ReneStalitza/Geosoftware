@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>insert title</title>
+		<style>table, th, td {
+			border: 1px solid black;}
+			#map { height: 40%px; width: 50%;  position: absolute; left: 11%; top: 0%; margin: 8px 8px}
+			body {background-color: #f1f1f1; color: black}
+			
+			#header {
+	            background-color: grey;
+	            color: black;
+	            top: 100px;
+				font-size: 19pt;
+	            letter-spacing: 3px;
+	            font-style: italic;
+	            text-align: center;
+                padding: 15px;
+            }
+			
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				background-color: #373B3D;
+
+				height: 0%;
+				overflow: auto;
+				color: black;
+			}
+			li a {
+				display: block;
+				color: black;
+				padding: 8px 16px;
+				text-decoration: none;
+			}
+
+			li a.active {
+				background-color: #4CAF50;
+				color: black;
+			}
+
+			li a:hover:not(.active) {
+				background-color: #A0A0A0;
+				color: black;
+			}
+			.footer {
+				background-color: #373B3D;
+				padding: 10px;
+				text-align: center;
+				color: white;
+				position: absolute;
+				bottom: 1%;
+				left: 11%;
+				width: 80%;
+			}
+			.collapsible {
+				background-color: #373B3D;
+				color: white;
+				cursor: pointer;
+				padding: 18px;
+				width: 15%;
+				border: none;
+				text-align: left;
+				outline: none;
+				font-size: 15px;
+			}
+			.activec, .collapsible:hover {
+				background-color: #373B3D;
+			}
+
+			.collapsible:after {
+				content: '\002B';
+				color: white;
+				font-weight: bold;
+				float: right;
+				margin-left: px;
+				height: 60%;
+			}
+			.activec:after {
+				content: "\2212";
+			}
+			.content {
+				padding: 0 0px;
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 0.2s ease-out;
+				background-color: #373B3D;
+				width: 15%;
+			}
+			.page {
+				position: absolute;
+				left: 20%;
+				top: 20%;
+				max-width: 100%;
+			}
+			@media screen and (max-width: 900px) {
+				.column.side, .column.middle {
+					width: 100%;
+				}
+				.collapsible {
+					width: 100%;
+				}
+				.content {
+					width: 100%;
+				}
+				.page {
+					position: relative;
+				}
+			}
+			.column {
+				float: left;
+				width: 100%;
+				padding: 15px;
+			}
+			.row:after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+
+		</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+	</head>
+	<body>
+    <div id="header">
+        <p>Routing  Website</p>
+    </div>
+	<button class="collapsible in">Menü</button>
+	<div class="content">
+		<ul>
+		<li><a class="active" >Home</a></li>
+		<li><a href="./routeneditor">Routeneditor</a></li>
+		<li><a href="./routenanzeige" >Routenanzeige</a></li>
+		</ul>
+		<div style="margin-left:10%;padding:1px 16px;height:1000px;">
+		</div>
+	</div>
+
+
+		<div class="page" style="color: black;">
+			<h1>Home</h1>
+			<br />
+			<p>This is a Route editing site.</p>
+			<p>Click on 'Routeneditor' to create Routes</p>
+		</div>
+
+		<div class="footer">
+			<p>Impressum</p>
+		</div>
+
+		<script>
+			var coll = document.getElementsByClassName("collapsible");
+			var i;
+
+			for (i = 0; i < coll.length; i++) {
+				coll[i].addEventListener("click", function() {
+				this.classList.toggle("activec");
+				var content = this.nextElementSibling;
+				if (content.style.maxHeight){
+					content.style.maxHeight = null;
+				} else {
+				content.style.maxHeight = 160 + "px";
+				}
+			});
+		}
+		</script>
+	</body>
+</html>
