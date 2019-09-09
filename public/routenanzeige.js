@@ -16,12 +16,12 @@ var content = '';
 load.load(resource, function(result) {
 	content = load.html();
 	contentJ = JSON.parse(content);
-	console.log(contentJ);
+	//console.log(contentJ);
 	var routeList = [];
 	for(var h = 0; h < contentJ.length; h++) {
         table(contentJ[h].name, contentJ[h].description, contentJ[h].date, colors[h], h)
 		var geoj = JSON.parse(contentJ[h].geojson);
-
+//console.log(geoj);
 		for(var i = 0; i < geoj.features.length; i++) {
 			var line = [];
 			for(var j = 0; j < geoj.features[i].geometry.coordinates.length; j++) {
@@ -34,8 +34,28 @@ load.load(resource, function(result) {
 		}
 	}
 });
-console.log(overlay);
+var t = document.getElementById("Table1"); 
+var x = t.getElementsByClassName("ob");
+console.log(x);
+console.log(x[0]);
 
+function myFunction() {
+  var t = document.getElementById("Table1"); 
+  var x = t.getElementsByClassName("ob");
+  
+  for (var i = 0;i<x.length;i++){
+      if (x[i].children) { 
+	    routes[x[i].value -1].addTo(overlay);
+		
+		
+	  
+	  }
+	  else {
+		  overlay.removeLayer(routeList[i]);
+		  
+	  };
+  }
+}
 function table(name, desc, date, color, h){
 var table = document.getElementById("Table1");
 
@@ -51,12 +71,13 @@ cell4.setAttribute('bgcolor', color);
 
         var checkbox = document.createElement("INPUT"); //Added for checkbox
         checkbox.type = "checkbox"; //Added for checkbox
-		checkbox.class = "objs";
+		//checkbox.set = ;
 		checkbox.checked = true;
 		checkbox.value = h;
 
 
 cell0.appendChild(checkbox);
+cell0.setAttribute('class', "ob");
 cell1.innerHTML = name;
 cell2.innerHTML = desc;
 cell3.innerHTML = date;
