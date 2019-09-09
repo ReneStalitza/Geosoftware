@@ -2,14 +2,14 @@ var map = L.map('map').setView([51.968804, 7.596188], 13);
 var osmLayer = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
 osmLayer.addTo(map);
 
-var colors = ['red','blue','green','yellow','purple','brown','cyan','orange', 'darkgreen'];
+var colors = ['red','blue','green','yellow','purple','brown','cyan','orange', 'darkgreen', 'darkblue'];
 console.log(colors[1]);
 
 var overlay = L.layerGroup();
 overlay.addTo(map);
 
 
-
+var extra = [];
 var resource = "/api/";
 var load = $('<div>');
 var content = '';
@@ -29,33 +29,79 @@ load.load(resource, function(result) {
 				line.push(point);
 			}
 
-			routeList[i] = L.polyline(line, {color: colors[h]});
+			routeList[i] = L.polyline(line, {color: colors[h], id : h});
+			extra.push(routeList[i]);
 			routeList[i].addTo(overlay);
+			
 		}
 	}
 });
-var t = document.getElementById("Table1"); 
-var x = t.getElementsByClassName("ob");
-console.log(x);
-console.log(x[0]);
 
-function myFunction() {
-  var t = document.getElementById("Table1"); 
-  var x = t.getElementsByClassName("ob");
-  
-  for (var i = 0;i<x.length;i++){
-      if (x[i].children) { 
-	    routes[x[i].value -1].addTo(overlay);
+
+
+
+var t = document.getElementById("Table1"); 
+console.log(t);
+var x = t.getElementsByClassName("ob");
+console.log(overlay.getLayers());
+
+function check(){
+	if(overlay.getLayers().length >= 1) {
 		
 		
-	  
-	  }
-	  else {
-		  overlay.removeLayer(routeList[i]);
-		  
-	  };
-  }
+		console.log(overlay.getLayers().length);
+   var zu = overlay.getLayers()[0].toGeoJSON(); 
+	
+	var zt = overlay.getLayers()[1].toGeoJSON(); 
+
+var intersects = turf.lineIntersect(zu, zt);
+console.log(intersects.features.length);
+met();
+	}
+	else {
+		setTimeout(check, 1000);
+	}
 }
+
+check();
+
+function met(){
+	
+	
+	
+	for(var a = 0; a < overlay.getLayers().length; a++) {
+		
+		
+		
+		for(var b = 0; b < overlay.getLayers().length; b++) {
+			console.log(intersects);
+	        var zu = overlay.getLayers()[a].toGeoJSON(); 
+			var zt = overlay.getLayers()[b].toGeoJSON(); 
+
+            var intersects = turf.lineIntersect(zu, zt);
+			
+			if (intersects.features.length > 0 && a != b) { 
+			    //tab();
+				console.log("s");
+				var table = document.getElementById("Table2");
+				var row = table.insertRow(-1);
+				var cell0 = row.insertCell(0);
+
+                var t = document.getElementById("Table1"); 
+                var x = t.getElementsByClassName("na").item(a).innerText;
+				var y = t.getElementsByClassName("na").item(b).innerText;
+				console.log(x);
+				var g = new String(" could possibly see ");
+				
+				cell0.innerHTML = x +g + y;
+				intersects ="";
+			}			
+			
+		}
+	}
+}
+met();
+
 function table(name, desc, date, color, h){
 var table = document.getElementById("Table1");
 
@@ -68,22 +114,17 @@ var cell3 = row.insertCell(3);
 var cell4 = row.insertCell(4);
 
 cell4.setAttribute('bgcolor', color);
+cell1.setAttribute('class', "na");
+var f = '<input type="checkbox" class="ob" value="no" checked="true" onclick = "go();">';
 
-        var checkbox = document.createElement("INPUT"); //Added for checkbox
-        checkbox.type = "checkbox"; //Added for checkbox
-		//checkbox.set = ;
-		checkbox.checked = true;
-		checkbox.value = h;
-
-
-cell0.appendChild(checkbox);
-cell0.setAttribute('class', "ob");
+cell0.innerHTML = f;
 cell1.innerHTML = name;
 cell2.innerHTML = desc;
 cell3.innerHTML = date;
 cell4.innerHTML = "";
 
 }
+
 
 /**
 $.ajax({
@@ -208,5 +249,6 @@ map.on("draw:edited", function (event) {
 
 function updateText(){
   document.getElementById("geojsontextarea").value = JSON.stringify(drawnItems.toGeoJSON());
+ 
 
 }
