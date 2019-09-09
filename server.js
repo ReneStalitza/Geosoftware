@@ -17,6 +17,7 @@ app.get('/test', (req, res) => {
 	res.sendFile(__dirname + '/index.html');
 });
 
+
 app.get('/home', (req, res) => {
 	res.sendFile(__dirname + '/home.html');
 });
@@ -29,7 +30,7 @@ app.get('/routenanzeige', (req, res) => {
 
 app.use(express.urlencoded({ extended: false }))
 
-var website = '<a href="/routenanzeige"</a><br /><br />';
+var website = '<a href="/routenanzeige"</a>OK<br /><br />';
 
 // item storage with items that have unique names
 var itemStorage = [];
@@ -48,6 +49,7 @@ var getitemcontroller = function(req, res) {
 	 	console.dir(error);
 	 }
 	 if(req.query.name == "") {
+		 
 		 db.collection("item").find({}).toArray(
  			(error, result) => {
  				if(error) throw error;
@@ -60,6 +62,7 @@ var getitemcontroller = function(req, res) {
  				}
  			}
  		);
+		 
 	 }
 	 else{
 	 	db.collection("item").find({'name': req.query.name}).toArray(
@@ -98,7 +101,7 @@ var postitemcontroller = function(req, res) {
 			 console.log(result);
 			 if(result != "") {
 				 res.send(website + "Error: Item " + req.body.name + " is already in storage, use Update Route instead.");
-
+                 
 			 }
 			 else {
 					var obj = req.body;
@@ -111,8 +114,8 @@ var postitemcontroller = function(req, res) {
 					console.log(req.body);
 				});
 
-				//res.send(website);
-				res.redirect('/routeneditor');
+				//res.send(website + JSON.stringify(req.body));
+				res.redirect('/routenanzeige');
 			 }
 		 }
 	 );
@@ -181,7 +184,7 @@ var deleteitemcontroller = function(req, res) {
 					console.log(req.query);
 				});
 
-				res.send(website + "Item deleted");
+				res.redirect('/routenanzeige');
 			 }
 		 }
 	 );
