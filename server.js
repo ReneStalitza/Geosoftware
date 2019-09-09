@@ -6,9 +6,15 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 const mongodb = require('mongodb');
 
+app.use(express.static(__dirname + '/test'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/qunit', express.static(__dirname + '/node_modules/qunit/qunit'));
 
 app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/home.html');
+});
+app.get('/test', (req, res) => {
+	res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/home', (req, res) => {
