@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>insert title</title>
+		<title>Routing Website</title>
 		<style>table, th, td {
 			border: 1px solid black;}
 			#header {
@@ -100,7 +100,7 @@
 				top: 20%;
 				width: 80%;
 			}
-			@media screen and (max-width: 900px) {
+			@media screen and (max-width: 1300px) {
 				.column.side, .column.middle {
 					width: 100%;
 				}
@@ -124,7 +124,7 @@
 				}
 
 			}
-			@media screen and (max-height: 1000px) {
+			@media screen and (max-height: 1500px) {
 				.footer {
 					top: 1100px;
 
@@ -147,11 +147,12 @@
 				display: table;
 				clear: both;
 			}
-			#Table1 {
+			#tables {
 			      position: absolute;
-			      top:20%;
+			      top:17%;
 				  left:70%;
 			}
+			
 
 		</style>
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
@@ -181,48 +182,18 @@
 
 
 	<script src="client.js"></script>
-
+	
+	
 	<div class="page" style="color: black;">
 
 	<div id="main" style="overflow: auto;">
 	<div id="map" style="width: 700px; height: 400px; "></div>
+	
+	
+	
 <div id="data">
 
-    <table id="Table1" >
-   <h2 id="Header1">Routes</h2>
-   <tr>
-     <th>See</th>
-	 <th> Name </th>
-	 <th>Description</th>
-     <th>Date</th>
-     <th>Color</th>	 
-    </tr>
-
-
-	<h1>Get Route Data</h1>
-
-<form action="item/" method="GET" >
-	Name:<br />
-	<input type="text" name="name" /><br
-	<br />
-	<input type="submit" value="Send" />
-</form>
-
-<br />
-
-
-<h1>Update Route</h1>
-
-<form action="item/update" method="POST" >
-	Name:<br />
-	<input type="text" name="name" /><br>
-	Description:<br />
-	<input type="text" name="description" /><br>
-	GeoJSON: <br />
-	<input type="text" name="geojson" placeholder="get geojson at 'Routeneditor'"/><br>
-	<br />
-	<input type="submit" value="Send" />
-</form>
+   
 
 <br />
 
@@ -244,6 +215,25 @@
 		</div>
 
 		</div>
+<div id="tables" >
+	<table id="Table1" >
+   <h2 id="Header1">Routes</h2>
+   <tr>
+     <th>See</th>
+	 <th> Name </th>
+	 <th>Description</th>
+     <th>Date</th>
+     <th>Color</th>	 
+    </tr>
+	</table>
+	<br>
+	<br>
+	<table id="Table2" >
+   <h2 id="Header1">Meetings</h2>
+   <tr>
+     <th>Possible Meetings</th>
+	 </table>
+	 </div>
 
 
 
@@ -278,4 +268,5 @@
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
 <script src="routenanzeige.js"></script>
